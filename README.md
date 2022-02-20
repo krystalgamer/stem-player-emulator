@@ -8,6 +8,9 @@ This repository contains the source code of Kanye West's stem player.
 2. Press [here](https://github.com/krystalgamer/stem-player-emulator/raw/master/stem_emulator.user.js), a Tampermonkey tab should open
 3. Press install, and you're done
 
+## Tutorial
+
+If you prefer a video tutorial you can see mine [here](https://www.youtube.com/watch?v=QqBiKZmr5rw)
 
 ## Working features
 

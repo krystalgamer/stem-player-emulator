@@ -569,13 +569,14 @@ console.log('out maquina');
             console.dir(arguments[i]);
             console.log(typeof(arguments[i]));
         }
+
         let url = arguments[0];
         if(typeof(arguments[0]) == 'string'){
            url = arguments[0].replace('codec=mp3', 'codec=wav');
         }
 
 
-        if(arguments == 2){
+        if(arguments.length == 2){
             return oldFetch(url, arguments[1]);
         }
 

@@ -17,6 +17,7 @@ If you prefer a video tutorial you can see mine [here](https://www.youtube.com/w
 - Download stems from albums
 - Download stems from uploaded files
 - Download stems from link
+- Download WAV stems (true WAV, not the MP3->WAV conversion present on the actual player) - only works for album tracks
 
 ## Not planned
 

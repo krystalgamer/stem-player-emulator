@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stem Player Emulator
 // @namespace    https://www.stemplayer.com/
-// @version      0.2
+// @version      0.3
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
@@ -13,6 +13,8 @@
     'use strict';
 
 
+
+    let mode = 'mp3';
     class MessageType{
         static ACK = 0;
         static NAK = 1;
@@ -154,7 +156,7 @@ console.log('out maquina');
             this.content.set(content, this.written);
             this.written += content.length;
 
-            //console.log('Content is at ' + this.written+'/'+this.size);
+            console.log('Content is at ' + this.written+'/'+this.size);
             if(this.written > this.size){
                 console.error('WENT OVERBOARD ' + this.written + ' yikes ' + this.size);
             }
@@ -162,7 +164,7 @@ console.log('out maquina');
         }
 
         getCoolName(){
-            return [this.track.album.getCoolName(), this.track.getCoolName(), this.number].join('_') + '.mp3';
+            return [this.track.album.getCoolName(), this.track.getCoolName(), this.number].join('_') + '.'+mode;
         }
 
         saveToDisk(){
@@ -557,6 +559,44 @@ console.log('out maquina');
         console.log('aqui');
         return new Promise((res, _) => { res(createFakeUSB()); } );
     };
+
+    let oldFetch = fetch;
+
+    function newFetch(){
+
+
+        for(let i = 0; i< arguments.length; i++){
+            console.dir(arguments[i]);
+            console.log(typeof(arguments[i]));
+        }
+        let url = arguments[0];
+        if(typeof(arguments[0]) == 'string'){
+           url = arguments[0].replace('codec=mp3', 'codec=wav');
+        }
+
+
+        if(arguments == 2){
+            return oldFetch(url, arguments[1]);
+        }
+
+        return oldFetch(url);
+    }
+
+    window.fetch = newFetch;
+
+    function modeStr(){
+        return 'Current mode: ' + mode;
+    }
+    const but = document.createElement('button');
+    but.style.zIndex = 9999;
+    but.innerHTML = modeStr();
+    but.addEventListener('click', (e) => {
+
+        mode = mode == 'mp3' ? 'wav' : 'mp3';
+        e.srcElement.innerHTML = modeStr();
+    });
+    document.body.prepend(but)
+
 
     console.log(origRequestDevice);
 })();

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stem Player Emulator
 // @namespace    https://www.stemplayer.com/
-// @version      0.3
+// @version      0.3.1
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
@@ -571,7 +571,7 @@ console.log('out maquina');
         }
 
         let url = arguments[0];
-        if(typeof(arguments[0]) == 'string'){
+        if(typeof(arguments[0]) == 'string' && mode == 'wav'){
            url = arguments[0].replace('codec=mp3', 'codec=wav');
         }
 

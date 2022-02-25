@@ -5,6 +5,7 @@
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
+// @match        https://www.kanyewest.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=stemplayer.com
 // @grant        none
 // ==/UserScript==

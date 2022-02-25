@@ -8,6 +8,15 @@ This repository contains the source code of Kanye West's stem player.
 2. Press [here](https://github.com/krystalgamer/stem-player-emulator/raw/master/stem_emulator.user.js), a Tampermonkey tab should open
 3. Press install, and you're done
 
+## Mobile Installation (iOS)
+1. Install [Userscripts](https://apps.apple.com/us/app/userscripts/id1463298887)
+2. Go [here](https://github.com/krystalgamer/stem-player-emulator/raw/master/stem_emulator.user.js)
+3. Next to the website name on Safari, click the "aA" button.
+4. Click "Manage Extensions" and enable Userscripts
+5. Go back to the "aA" menu, and click "Userscripts"
+6. Should popup a menu that says "Userscript detected: Install"
+7. Click Install, and you're done!
+
 ## Tutorial
 
 If you prefer a video tutorial you can see mine [here](https://www.youtube.com/watch?v=QqBiKZmr5rw)

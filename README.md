@@ -2,6 +2,10 @@
 
 This repository contains the source code of Kanye West's stem player.
 
+## Tutorial
+
+If you prefer a video tutorial you can see mine [here](https://www.youtube.com/watch?v=QqBiKZmr5rw)
+
 ## Installation
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/)
@@ -17,9 +21,6 @@ This repository contains the source code of Kanye West's stem player.
 6. Should popup a menu that says "Userscript detected: Install"
 7. Click Install, and you're done!
 
-## Tutorial
-
-If you prefer a video tutorial you can see mine [here](https://www.youtube.com/watch?v=QqBiKZmr5rw)
 
 ## Working features
 

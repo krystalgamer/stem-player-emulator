@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Stem Player Emulator
 // @namespace    https://www.stemplayer.com/
-// @version      0.4
+// @version      0.4.2
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
+// @match        https://www.kanyewest.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=stemplayer.com
 // @grant        none
 // ==/UserScript==
@@ -560,6 +561,7 @@ console.log('out maquina');
         return new Promise((res, _) => { res(createFakeUSB()); } );
     };
 
+
     let oldFetch = fetch;
 
     function newFetch(){
@@ -599,5 +601,5 @@ console.log('out maquina');
     document.body.prepend(but)
 
 
-    console.log(origRequestDevice);
+    document.addEventListner('load', () => { console.log('cona'); }, false);
 })();

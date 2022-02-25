@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stem Player Emulator
 // @namespace    https://www.stemplayer.com/
-// @version      0.5
+// @version      0.6
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
@@ -610,7 +610,16 @@ console.log('out maquina');
     document.body.prepend(but)
 
 
-    window.InstallTrigger = undefined;
+    if(!!window.InstallTrigger){
+        window.InstallTrigger = undefined;
+    }
+
+    if(!!window['safari']){
+        window['safari'] = {};
+    }
+
+
+
     window.chrome = {loadTimes:{}};
 
     document.addEventListener('load', () => { console.log('cona'); }, false);

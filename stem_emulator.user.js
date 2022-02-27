@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stem Player Emulator
 // @namespace    https://www.stemplayer.com/
-// @version      0.6.1
+// @version      0.7
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
@@ -617,6 +617,20 @@ console.log('out maquina');
     if(!!window['safari']){
         window['safari'] = {};
     }
+
+    if(!!window.opr){
+        window.opr = undefined;
+    }
+
+    if(!!window.opera){
+        window.opera = undefined;
+    }
+
+    Object.defineProperty(navigator, 'userAgent', {
+        value: navigator.userAgent.replaceAll(' OPR/', '').replaceAll('SamsungBrowser', ''),
+        configurable: false
+    });
+
 
 
     if(window.chrome == undefined){

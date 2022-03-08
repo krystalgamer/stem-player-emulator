@@ -24,6 +24,7 @@ If you prefer a video tutorial you can see mine [here](https://www.youtube.com/w
 
 ## Working features
 
+- Removed e-mail requirement
 - Download stems from albums
 - Download stems from uploaded files
 - Download stems from link

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stem Player Emulator
 // @namespace    https://www.stemplayer.com/
-// @version      0.8.4
+// @version      0.9
 // @description  Emulator for Kanye West's stem player
 // @author       krystalgamer
 // @match        https://www.stemplayer.com/*
@@ -85,6 +85,19 @@
     so we split off the beginning:
     */
         return base64url;
+    }
+
+    function downloadContent(content, name){
+        base64_arraybuffer(content).then( (data) => {
+            const element = document.createElement('a');
+            element.setAttribute('href', data);
+            element.setAttribute('download', name);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element)
+        });
+
     }
 
     class FileDownloaderState{
@@ -176,15 +189,7 @@ console.log('out maquina');
                 return;
             }
 
-            base64_arraybuffer(this.content).then( (data) => {
-                                    const element = document.createElement('a');
-                                    element.setAttribute('href', data);
-                                    element.setAttribute('download', this.getCoolName());
-                                    element.style.display = 'none';
-                                    document.body.appendChild(element);
-                                    element.click();
-                                    document.body.removeChild(element)
-                                });
+            downloadContent(this.content, this.getCoolName());
         }
 
         isFull(){
@@ -575,11 +580,13 @@ console.log('out maquina');
 
     function newFetch(){
 
-
+/*
         for(let i = 0; i< arguments.length; i++){
             console.dir(arguments[i]);
             console.log(typeof(arguments[i]));
         }
+        */
+
 
         let url = arguments[0];
         if(typeof(arguments[0]) == 'string' && mode == 'wav'){
@@ -599,15 +606,41 @@ console.log('out maquina');
     function modeStr(){
         return 'Current mode: ' + mode;
     }
-    const but = document.createElement('button');
-    but.style.zIndex = 9999;
-    but.innerHTML = modeStr();
-    but.addEventListener('click', (e) => {
 
+    function createTopMostButton(innerHTML, eventListener){
+        const but = document.createElement('button');
+        but.style.zIndex = 9999;
+        but.innerHTML = innerHTML;
+        but.addEventListener('click', eventListener);
+        return but;
+    }
+
+
+    const buttons = [];
+    const modeButton = createTopMostButton(modeStr(), (e) => {
         mode = mode == 'mp3' ? 'wav' : 'mp3';
         e.srcElement.innerHTML = modeStr();
     });
-    
+
+
+    let downloadOnPlay = false;
+    function downloadOnPlayStr(){
+        return 'Download on play: ' + (downloadOnPlay ? 'on' : 'off');
+    }
+
+    const downloadButton = createTopMostButton(downloadOnPlayStr(), (e) => {
+        downloadOnPlay = !downloadOnPlay;
+        e.srcElement.innerHTML = downloadOnPlayStr();
+    });
+
+    buttons.push(downloadButton);
+    buttons.push(modeButton);
+
+
+    function addButtons(){
+        for(let i = 0; i <buttons.length; i++)
+            document.body.prepend(buttons[i]);
+    }
 
 
     if(!!window.InstallTrigger){
@@ -637,14 +670,52 @@ console.log('out maquina');
         window.chrome = {loadTimes:{}};
     }
 
+
+    let downloadFullTrack = null;
+    class MyAudio extends Audio{
+        constructor(url){
+            super(url);
+        }
+
+        play(){
+            downloadFullTrack = downloadOnPlay ? this.src : null;
+            return super.play();
+
+        }
+    }
+    Audio = MyAudio;
+
+    let metadata = {};
+    Object.defineProperty(navigator.mediaSession, 'metadata', {
+        get: function() {
+            return metadata;
+        },
+        set: function(value) {
+
+            const trackName = [value.album, value.title].join('_')+'.'+mode;
+
+            if(downloadFullTrack != null){
+
+                fetch(downloadFullTrack).then( (response) => response.arrayBuffer()).then( (buffer) => {
+                    downloadContent(buffer, trackName);
+                });
+
+                downloadFullTrack = null;
+            }
+            metadata = value;
+        }
+    });
+
     if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
-        document.body.prepend(but)
+        addButtons();
     } else {
         document.addEventListener("DOMContentLoaded", function(event) {
-            document.body.prepend(but)
+            addButtons();
         });
     }
 
-    window.localStorage.setItem('production_sp_basic_session', JSON.stringify({"AuthToken":btoa(atob('bHJwYW5kYThAZ21haWwuY29t')+':'+Date.now())}))
+    window.localStorage.setItem('production_sp_basic_session', JSON.stringify({"AuthToken":btoa(atob('bGVubmFyZGxlbW1lckBnbWFpbC5jb20=')+':'+Date.now())}))
+
+
 
 })();

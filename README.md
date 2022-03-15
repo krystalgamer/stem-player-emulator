@@ -26,6 +26,7 @@ If you prefer a video tutorial you can see mine [here](https://www.youtube.com/w
 
 ## Working features
 
+- Download on play (when PLAY is pressed, track will be downloaded)
 - Removed e-mail requirement
 - Download stems from albums
 - Download stems from uploaded files

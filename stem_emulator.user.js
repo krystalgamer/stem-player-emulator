@@ -48,6 +48,7 @@
         static RENAME_ALBUM = 15;
         static MOVE_TRACK = 16;
         static GET_STATE_OF_CHARGE = 17;
+        static CHALLENGE = 18;
     };
 
 
@@ -261,6 +262,15 @@ console.log('out maquina');
     };
 
 
+    function getDeviceInfo(){
+        return {
+                        'appver': "1.0.1636",
+                        'btver': "1.24.1405",
+                        'blver': "0.1.1311",
+                        'sn': '002800273330510139323636'
+                    };
+    }
+
     class StemEmulator{
         constructor(){
             this.last = null;
@@ -322,12 +332,7 @@ console.log('out maquina');
         }
 
         getDeviceInfo(){
-         return {
-                        'appver': "1.0.1636",
-                        'btver': "1.24.1405",
-                        'blver': "0.1.1311",
-                        'sn': '002800273330510139323636'
-                    };
+            return getDeviceInfo();
         }
 
         getStorageInfo(){
@@ -358,6 +363,8 @@ console.log('out maquina');
                 case ControlType.GET_ALBUM_CONFIG:
                     const p = JSON.parse(new TextDecoder().decode(this.last.payload.slice(1,-1)));
                     return createResponse(MessageType.RESPONSE, new Uint8Array([this.last.payload[0], ...jsonToUint8(this.albums[p.album].config)]));
+                case ControlType.CHALLENGE:
+                    return createResponse(MessageType.RESPONSE, new Uint8Array([this.last.payload[0], ...jsonToUint8({response:69})]));
                 default:
                     console.warn('unsupported control type ' + this.last.payload[0]);
                     break;
@@ -591,6 +598,19 @@ console.log('out maquina');
         let url = arguments[0];
         if(typeof(arguments[0]) == 'string' && mode == 'wav'){
            url = arguments[0].replace('codec=mp3', 'codec=wav');
+        }
+
+
+        if(typeof(url) == 'string' && url.endsWith('/accounts/device-login')){
+            return new Promise( (res, _) => { res({ok: true, json: async () => {
+                return  {data: {AccessToken: 'hi'}};
+
+            } }); } );
+        }
+
+        if(typeof(url) == 'string' && url.startsWith('https://api.stemplayer.com/content/stems?')){
+            url = url+'&device_id='+getDeviceInfo().sn;
+
         }
 
 

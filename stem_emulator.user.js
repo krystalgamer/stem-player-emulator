@@ -712,6 +712,7 @@ console.log('out maquina');
         },
         set: function(value) {
 
+            if(value == null) return;
             const trackName = [value.album, value.title].join('_')+'.'+mode;
 
             if(downloadFullTrack != null){

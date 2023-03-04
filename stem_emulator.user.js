@@ -705,8 +705,6 @@ console.log('out maquina');
     }
     Audio = MyAudio;
 
-    let metadata = {};
-    navigator.mediaSession.metadata = metadata; // updated metadata tag to fix problem
     Object.defineProperty(navigator.mediaSession, 'metadata', {
         get: function() {
             return metadata;
@@ -727,6 +725,9 @@ console.log('out maquina');
             metadata = value;
         }
     });
+    
+    let metadata = {};
+    navigator.mediaSession.metadata = metadata; // updated metadata tag to fix problem
 
     if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
         addButtons();

@@ -710,16 +710,16 @@ console.log('out maquina');
             return metadata;
         },
         set: function(value) {
-
+    
             if(value == null) return;
             const trackName = [value.album, value.title].join('_')+'.'+mode;
-
+    
             if(downloadFullTrack != null){
-
+    
                 fetch(downloadFullTrack).then( (response) => response.arrayBuffer()).then( (buffer) => {
                     downloadContent(buffer, trackName);
                 });
-
+    
                 downloadFullTrack = null;
             }
             metadata = value;
@@ -727,8 +727,7 @@ console.log('out maquina');
     });
     
     let metadata = {};
-    navigator.mediaSession.metadata = metadata; // updated metadata tag to fix problem
-
+    
     if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
         addButtons();
     } else {
@@ -736,9 +735,8 @@ console.log('out maquina');
             addButtons();
         });
     }
-
+    
     window.localStorage.setItem('production_sp_basic_session', JSON.stringify({"AuthToken":btoa(atob('bGVubmFyZGxlbW1lckBnbWFpbC5jb20=')+':'+Date.now())}))
-
-
-
+    
+    
 })();

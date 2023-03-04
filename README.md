@@ -34,17 +34,17 @@ If you prefer a video tutorial you can see mine [here](https://www.youtube.com/w
 
 ## Working features
 
-- Download on play (when PLAY is pressed, track will be downloaded)
-- Removed e-mail requirement
-- Download stems from albums
-- Download stems from uploaded files
-- Download stems from link
-- Download WAV stems (true WAV, not the MP3->WAV conversion present on the actual player) - only works for album tracks
+- [x] Download on play (when PLAY is pressed, track will be downloaded)
+- [x] Removed e-mail requirement
+- [x] Download stems from albums
+- [x] Download stems from uploaded files
+- [x] Download stems from link
+- [x] Download WAV stems (true WAV, not the MP3->WAV conversion present on the actual player) - **only works for album tracks**
 
 ## Not planned
 
-- Download full albums (requires storage emulation)
-- Configuration emulation (there's no need)
+- [ ] Download full albums (requires storage emulation)
+- [ ] Configuration emulation (there's no need)
 
 ## License
 

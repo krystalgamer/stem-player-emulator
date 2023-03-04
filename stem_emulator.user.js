@@ -713,18 +713,19 @@ console.log('out maquina');
         return metadata;
       },
       set: function(value) {
-        if(value == null) return;
-    
-        const trackName = [value.album, value.title].join('_')+'.'+mode;
-    
-        if(downloadFullTrack != null){
-          fetch(downloadFullTrack).then( (response) => response.arrayBuffer()).then( (buffer) => {
-            downloadContent(buffer, trackName);
-          });
+        if (value == null) return;
+        const trackName = [value.album, value.title].join('_') + '.' + mode;
+        // Fetch the full track and download it.
+        if (downloadFullTrack != null) {
+          fetch(downloadFullTrack)
+            .then((response) => response.arrayBuffer())
+            .then((buffer) => {
+              downloadContent(buffer, trackName);
+            });
           downloadFullTrack = null;
         }
         metadata = value;
-      }
+      }      
     });
     
     if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {

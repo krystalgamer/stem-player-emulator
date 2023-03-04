@@ -705,38 +705,36 @@ console.log('out maquina');
     }
     Audio = MyAudio;
 
+    let metadata = {};
+    navigator.mediaSession.metadata = metadata; // Initialize metadata
+    
     Object.defineProperty(navigator.mediaSession, 'metadata', {
-        get: function() {
-            return metadata;
-        },
-        set: function(value) {
+      get: function() {
+        return metadata;
+      },
+      set: function(value) {
+        if(value == null) return;
     
-            if(value == null) return;
-            const trackName = [value.album, value.title].join('_')+'.'+mode;
+        const trackName = [value.album, value.title].join('_')+'.'+mode;
     
-            if(downloadFullTrack != null){
-    
-                fetch(downloadFullTrack).then( (response) => response.arrayBuffer()).then( (buffer) => {
-                    downloadContent(buffer, trackName);
-                });
-    
-                downloadFullTrack = null;
-            }
-            metadata = value;
+        if(downloadFullTrack != null){
+          fetch(downloadFullTrack).then( (response) => response.arrayBuffer()).then( (buffer) => {
+            downloadContent(buffer, trackName);
+          });
+          downloadFullTrack = null;
         }
+        metadata = value;
+      }
     });
     
-    let metadata = {};
-    
     if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
-        addButtons();
+      addButtons();
     } else {
-        document.addEventListener("DOMContentLoaded", function(event) {
-            addButtons();
-        });
+      document.addEventListener("DOMContentLoaded", function(event) {
+        addButtons();
+      });
     }
     
-    window.localStorage.setItem('production_sp_basic_session', JSON.stringify({"AuthToken":btoa(atob('bGVubmFyZGxlbW1lckBnbWFpbC5jb20=')+':'+Date.now())}))
-    
+    window.localStorage.setItem('production_sp_basic_session', JSON.stringify({"AuthToken":btoa(atob('bGVubmFyZGxlbW1lckBnbWFpbC5jb20=')+':'+Date.now())}));
     
 })();

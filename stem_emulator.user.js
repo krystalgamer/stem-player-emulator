@@ -706,6 +706,7 @@ console.log('out maquina');
     Audio = MyAudio;
 
     let metadata = {};
+    navigator.mediaSession.metadata = metadata; // updated metadata tag to fix problem
     Object.defineProperty(navigator.mediaSession, 'metadata', {
         get: function() {
             return metadata;
